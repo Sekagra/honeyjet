@@ -1,0 +1,137 @@
+#!/bin/dlsh
+
+
+echo `\n\n\n\n'
+$#set(path, /bin /etc /hp / . /net)
+
+# disable JVM 
+#$#set(CHAISERVERROOT,NO_WEBSERVER)
+#$#export(CHAISERVERROOT)
+
+#stty crt kill ^U intr ^C eof ^D -tabs
+
+#
+# Lance: If /dev/fwip0 exists, then we need to setup the
+#        configure the stack and setup a route to the other
+#        side of the link.
+#
+#        The following will determine if we’re running on
+#        a formatter or on a CPB and setup the IP
+#        addresses appropriately.
+#
+if $access(r, all, /dev/fwip)
+   $#set(cpb,n) 
+   if $access(r, all, /dev/scanner) 
+      if $access(x, all, /bin/cpb)
+         /bin/cpb -t
+         if $status
+            $#set(cpb,y)
+         end
+      else
+         if $access(x, all, /bin/cpb_d)
+            /bin/cpb_d -t
+            if $status
+               $#set(cpb,y)
+            end
+         end
+      end
+   end
+   if $cpb =~ [yY]
+      echo `Running on a CPB.'
+      if $access(x, all, /bin/ifconfig)
+         echo `Setting firewire IP address to fwscanner' 
+         /bin/ifconfig fwip0 fwscanner  netmask 255.255.248.0 up
+      else
+         echo `Unable to set firewire IP: /bin/ifconfig not found'
+      end
+   else
+      echo `Running on a formatter.'
+      if $access(x, all, /bin/ifconfig)
+         echo `Setting firewire IP address to fwprinter'
+         /bin/ifconfig fwip0 fwprinter  netmask 255.255.248.0 up
+      else
+         echo `Unable to set firewire IP: /bin/ifconfig not found'
+      end
+      if $access(x, all, /bin/copytest)
+         echo `Starting copytest'
+         /bin/copytest cp1 20 &
+      end
+   end
+end
+
+echo `
+=======================================================================
+
+                        Welcome to OZ 
+
+=======================================================================
+'
+
+# hw_debug & hw_nodebug, not hw_rom
+#   need to do this before autoboot in case user CTRL-C's autoboot
+if $access(x, all, /bin/bash)
+  $#set(HISTSIZE,10)
+  $#set(HISTFILE,/hpmnt/.bash_history)
+  $#export(HISTSIZE)
+  $#export(HISTFILE)
+end
+
+# ROM/RAM FULLIMAGE
+if $access(x, all, /hp/bin/autoboot) 
+
+  # To create a 2 MB RAM disk replace autoboot line with the following
+  #  /hp/bin/autoboot -s 10 -r 2048 
+
+  if \! $access(x, all, /bin/bash) 
+    $#set(sleep,0)
+  else
+    $#set(sleep,10)
+  end
+
+  /hp/bin/autoboot -s $sleep -r 0 
+  if \! $status 
+    exec /bin/sh -i
+  end
+else
+  # ROM/RAM NFS
+  if $access(w, all, /hpmnt) && $access(x, all, /bin/mkdir) && \
+     $access(x, all, /bin/stty) && $access(x, all, /bin/rdc) && \
+     $access(x, all, /bin/mkfs)
+    stty crt kill ^U intr ^C eof ^D -tabs
+    rdc -a 32K /dev/rd1
+    mkfs /dev/rd1
+    mount -q /dev/rd1 /hpmnt
+    mkdir /hpmnt/tmp
+    mkdir /hpmnt/etc
+  end
+end
+
+
+if $access(r, all, /hp/etc/ozini.ini) 
+  cp /hp/etc/ozini.ini /hpmnt/etc/ozini.ini
+  cp /dev/null /hpmnt/etc/mtab
+end
+if $access(r, all, /etc/hosts.rom)  && $access(w, all, /hpmnt/etc/hosts) 
+  cp /etc/hosts.rom /hpmnt/etc/hosts
+end
+
+
+if $access(x, all, /lynxboot/autoboot)
+  echo `\n\n'
+  echo `Starting /lynxboot/autoboot'
+  echo `\n\n'
+  /lynxboot/autoboot  
+else
+  if $access(x, all, /hp/bin/boot)
+    cd /hp
+    echo `\n\n'
+    echo `Starting bin/boot'
+    echo `\n\n'
+    bin/boot >/dev/null &
+  end
+end
+
+if $access(x, all, /bin/sh) 
+  exec /bin/sh -i
+end
+exit 0

@@ -1,0 +1,83 @@
+#hplogo
+  {
+    position:                  absolute; 
+    left:                      5px; 
+    top:                       5px; 
+    width:                     140px; 
+    height:                    71px; 
+    clip:                      rect(0px 140px 71px 0px);
+  }
+
+#banner 
+  {
+    position:                  absolute; 
+    left:                      145px; 
+    top:                       5px; 
+    width:                     640px; 
+    height:                    52px; 
+    clip:                      rect(0px 640px 52px 0px); 
+    layer-background-color:    rgb(51,102,204); 
+    background-color:          rgb(51,102,204);
+  }
+
+div.contentarea 
+  {
+    position:                  absolute; 
+    left:                      175px; 
+    top:                       145px; 
+    width:                     640px; 
+  }
+
+.buttontext   
+  {
+    color:                     #000000; 
+    font-size :                12px; 
+    font-family :              Arial, Helvetica; 
+    font-weight:               bold; 
+    padding:                   0cm;
+    text-decoration:           none;
+  }
+
+.banner1   
+  {
+    color:                     #FFFFFF; 
+    font-size :                14px; 
+    font-family :              Arial, Helvetica; 
+    padding:                   0cm
+  }
+
+.banner2   
+  {
+    color:                     #FFFFFF; 
+    font-size :                20px; 
+    font-family :              Arial, Helvetica; 
+    padding:                   0cm
+  }
+
+.title   
+  {
+    color:                     #000000; 
+    font-size :                20px; 
+    font-family :              Arial, Helvetica; 
+    padding:                   0cm
+  }
+
+p 
+  {
+    font-size :                12px; 
+    font-family :              Arial, Helvetica; 
+    padding:                   0cm
+  }
+
+
+body
+  {
+    background-color:          #FFFFFF;
+    color:                     #000000;
+    link                       #0000FF;
+    visited:                   #FF0000;
+    margin-top:                0px;
+    margin-right:              0px;
+    margin-bottom:             0px;
+    margin-leftL               0px
+  }

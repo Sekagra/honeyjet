@@ -1,0 +1,10 @@
+security.provider.1=hp.security.provider.HP
+policy.provider=hp.security.provider.PolicyFile
+policy.url.1=file:/hp/webServer/lib/security/java.policy
+policy.url.2=file:/hp/webServer/lib/security/java.policy
+policy.expandProperties=true
+policy.allowSystemProperty=true
+policy.ignoreIdentityScope=false
+keystore.type=cks
+system.scope=hp.security.provider.IdentityDatabase
+package.access=hp.

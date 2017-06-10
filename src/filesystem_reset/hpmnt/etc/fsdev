@@ -1,0 +1,5 @@
+#
+# format: raw:block:media:format:blksz:nblks:pfirst:pstart:psize:mountable
+#
+/dev/rdsk_flash0:/dev/dsk_flash0:8:3:512:-1:0:3:-1:r
+/dev/rdsk_ram0:/dev/dsk_ram0:2:0:512:0:0:3:0:g
