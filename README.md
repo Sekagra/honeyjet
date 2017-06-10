@@ -1,4 +1,4 @@
-# HONEYJET ![Printer](https://upload.wikimedia.org/wikipedia/commons/2/23/Printer.svg "Logo Title Text 1")
+# HONEYJET ![Printer](https://upload.wikimedia.org/wikipedia/commons/2/23/Printer.svg "Printer Logo")
 
 Raw access to network printers via the *JetDirect* technology on Port 9100 is a widely employed feature. While other network services like *LPD (Line Printer Daemon, Port 515)* and *IPP (Internet Printing Protocol, Port 631)* can be exploitable, the raw access provides the easiest access. As a language/protocol, HP's *Printer Job Language (PJL)* is currently employed by many vendors. With *PJL* one can set and read settings of directly from the printer hardware and start printing jobs all via the network.
 
