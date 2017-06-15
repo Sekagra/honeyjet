@@ -20,6 +20,10 @@ RUN pip install gevent
 
 # Copy application
 COPY src/ /honeyjet
+
+# Create log directory
+RUN mkdir -p /honeyjet/logs
+
 #RUN chown -R honeyjet:honeyjet /honeyjet
 
 #USER honeyjet
