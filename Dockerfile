@@ -12,7 +12,7 @@ RUN apt-get update && \
       python-virtualenv \
       python-setuptools
 
-RUN pip install gevent
+RUN pip install gevent jinja2
 
 # Add a user for the service
 #RUN groupadd honeyjet

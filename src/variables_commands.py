@@ -19,6 +19,7 @@ def getOutput(commandId):
 
 # get the specified variable value from the environment variables
 def PJL_INQUIRE(line, socket):
+    value = None
     name = __getVariableName(line)
     if name in variables['environment']:
         value = variables['environment'][name]
@@ -31,6 +32,7 @@ def PJL_INQUIRE(line, socket):
 
 # get the specified variable value from the default variables
 def PJL_DINQUIRE(line, socket):
+    value = None
     name = __getVariableName(line)
     if name in variables['default']:
         value = variables['default'][name]
@@ -82,7 +84,7 @@ def incPageCount():
 def __getVariableName(input):
     result = re.search('@PJL (INQUIRE|DINQUIRE|SET|DEFAULT) ([^=]+)', input)
     if result is not None:
-        return result.group(2).lstrip().rstrip()
+        return result.group(2).lstrip().rstrip().replace(":", "_").replace(" ", "_")
 
 def __getVariableValue(input):
     result = re.search('@PJL (SET|DEFAULT) ([^=]+)= ?(.*)', input)
